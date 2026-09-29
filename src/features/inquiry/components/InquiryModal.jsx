@@ -1,7 +1,6 @@
-import React from 'react';
-import { CheckCircle2 } from 'lucide-react';
-import Modal from '../../../components/ui/Modal';
-import InquiryForm from './InquiryForm';
+import { CheckCircle2 } from "lucide-react";
+import Modal from "../../../components/ui/Modal";
+import InquiryForm from "./InquiryForm";
 
 /**
  * Direct booking inquiry modal with WhatsApp generation workflow
@@ -13,32 +12,42 @@ export default function InquiryModal({
   onChange,
   onSubmit,
   isSubmitted,
-  onReopen
+  onReopen,
 }) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} maxWidth="max-w-lg">
-      <div>
-        <span className="text-xs font-bold text-orange-600 uppercase tracking-widest">
-          Direct Booking Inquiry
+    <Modal
+      ariaLabel="Inquiry form"
+      isOpen={isOpen}
+      onClose={onClose}
+      maxWidth="max-w-xl"
+    >
+      <div className="border-b border-[#DCDAD3] p-8 pb-6 lg:p-12 lg:pb-6">
+        <span className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-[#8A9678]">
+          DIRECT BOOKING
         </span>
-        <h3 className="text-2xl font-bold text-slate-900 mt-1">Book or Check Availability</h3>
-        <p className="text-xs text-slate-500 mt-1">
-          Fill in your preference to generate a direct WhatsApp message to our house manager.
-        </p>
+        <h2 className="font-display text-3xl uppercase tracking-tight">
+          INQUIRY.
+        </h2>
       </div>
 
       {isSubmitted ? (
-        <div className="p-6 bg-emerald-50 rounded-2xl text-center space-y-3 border border-emerald-200">
-          <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto" />
-          <h4 className="text-lg font-bold text-emerald-900">Inquiry Link Redirected!</h4>
-          <p className="text-xs text-emerald-700">
-            Your formatted message has been opened in WhatsApp. If it didn't open automatically, click the button below.
+        <div className="flex flex-col items-center px-8 py-12 text-center lg:px-12">
+          <CheckCircle2
+            aria-hidden="true"
+            className="mb-6 h-16 w-16 text-[#8A9678]"
+          />
+          <h3 className="mb-2 font-display text-2xl uppercase tracking-tight">
+            REQUEST SENT
+          </h3>
+          <p className="mb-8 text-xs uppercase tracking-widest text-[#77756F]">
+            Redirecting to WhatsApp...
           </p>
           <button
             onClick={onReopen}
-            className="px-5 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-md"
+            className="bg-[#171717] px-8 py-3 text-xs font-semibold uppercase tracking-widest text-[#F5F4EF]"
+            type="button"
           >
-            Re-open WhatsApp
+            OPEN WHATSAPP MANUALLY
           </button>
         </div>
       ) : (

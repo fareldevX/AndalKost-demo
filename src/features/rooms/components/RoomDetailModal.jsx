@@ -1,82 +1,76 @@
-import React from 'react';
-import { CheckCircle2 } from 'lucide-react';
-import Modal from '../../../components/ui/Modal';
-import { formatCurrencyIDR } from '../../../utils/formatters';
+import { ArrowRight, Check } from "lucide-react";
+import Modal from "../../../components/ui/Modal";
 
-/**
- * Room specification and photo gallery inspection modal
- */
 export default function RoomDetailModal({ room, onClose, onInquire }) {
   if (!room) return null;
 
   return (
     <Modal
+      ariaLabel={room.name}
+      className="grid md:grid-cols-2"
       isOpen={Boolean(room)}
+      maxWidth="max-w-4xl"
       onClose={onClose}
-      maxWidth="max-w-2xl"
-      className="max-h-[90vh] overflow-y-auto"
     >
-      {/* Modal Image Slider Gallery */}
-      <div className="space-y-3">
-        <div className="h-64 sm:h-80 rounded-2xl overflow-hidden bg-slate-100">
-          <img
-            src={room.images[0]}
-            alt={room.name}
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="grid grid-cols-3 gap-2">
-          {room.images.map((imgUrl, i) => (
-            <div
-              key={i}
-              className="h-20 rounded-xl overflow-hidden bg-slate-100 border border-slate-200"
-            >
-              <img src={imgUrl} alt="Thumbnail" className="w-full h-full object-cover" />
-            </div>
-          ))}
-        </div>
+      <div className="relative h-[40vh] min-h-64 border-b border-[#171717] md:h-full md:min-h-[620px] md:border-b-0 md:border-r">
+        <img
+          alt={room.name}
+          className="absolute inset-0 h-full w-full object-cover"
+          src={room.images[0]}
+        />
       </div>
 
-      <div>
-        <span className="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold uppercase">
+      <div className="flex flex-col p-8 lg:p-12">
+        <span className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-[#8A9678]">
           {room.badge}
         </span>
-        <h3 className="text-2xl font-bold text-slate-900 mt-2">{room.name}</h3>
-        <p className="text-sm text-slate-600 mt-1 leading-relaxed">{room.description}</p>
-      </div>
+        <h2 className="mb-4 font-display text-4xl uppercase tracking-tight">
+          {room.name}
+        </h2>
+        <p className="mb-8 text-sm leading-relaxed text-[#77756F]">
+          {room.description}
+        </p>
 
-      {/* Room Specs */}
-      <div className="bg-slate-50 p-4 rounded-2xl space-y-3 border border-slate-200">
-        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
-          Included Room Inclusions
-        </h4>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-medium text-slate-700">
-          {room.features.map((feat, i) => (
-            <div key={i} className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-              <span>{feat}</span>
-            </div>
-          ))}
+        <div className="mb-8 border-y border-[#DCDAD3] py-6">
+          <h3 className="mb-4 block text-[10px] font-semibold uppercase tracking-widest">
+            INCLUDED AMENITIES
+          </h3>
+          <ul className="grid grid-cols-1 gap-3">
+            {room.features.map((feature) => (
+              <li
+                className="flex items-start gap-3 text-xs font-medium uppercase tracking-wider text-[#77756F]"
+                key={feature}
+              >
+                <Check
+                  aria-hidden="true"
+                  className="h-4 w-4 shrink-0 text-[#8A9678]"
+                />
+                {feature}
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
 
-      <div className="flex items-center justify-between pt-2 border-t border-slate-200">
-        <div>
-          <p className="text-xs text-slate-400">Monthly Starting Rate</p>
-          <p className="text-2xl font-extrabold text-slate-900">
-            {formatCurrencyIDR(room.priceMonthly)}
-          </p>
+        <div className="mt-auto">
+          <span className="mb-1 block text-[10px] uppercase tracking-widest text-[#77756F]">
+            MONTHLY RATE
+          </span>
+          <span className="mb-6 block font-display text-3xl">
+            IDR {room.priceMonthly.toLocaleString("id-ID")}
+          </span>
+          <button
+            className="btn-hover-arrow flex w-full items-center justify-center gap-2 bg-[#171717] py-4 text-xs font-semibold uppercase tracking-widest text-[#F5F4EF] transition-colors hover:bg-[#8A9678]"
+            onClick={() => {
+              const roomName = room.name;
+              onClose();
+              onInquire(roomName);
+            }}
+            type="button"
+          >
+            INQUIRE THIS SPACE{" "}
+            <ArrowRight aria-hidden="true" className="h-4 w-4" />
+          </button>
         </div>
-        <button
-          onClick={() => {
-            const roomName = room.name;
-            onClose();
-            onInquire(roomName);
-          }}
-          className="px-6 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm shadow-md"
-        >
-          Inquire Ketersediaan
-        </button>
       </div>
     </Modal>
   );

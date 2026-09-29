@@ -1,29 +1,37 @@
-import React from 'react';
-import { ChevronDown } from 'lucide-react';
-
 /**
  * Individual FAQ accordion item
  */
 export default function FaqItem({ question, answer, isOpen, onToggle }) {
+  const answerId = `faq-answer-${question.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+
   return (
-    <div className="border border-slate-200 rounded-2xl overflow-hidden transition-all duration-200">
+    <div className="border-b border-[#171717]">
       <button
-        onClick={onToggle}
-        className="w-full px-6 py-5 text-left font-bold text-slate-900 text-base flex items-center justify-between gap-4 bg-slate-50/50 hover:bg-slate-100/80 transition-colors"
+        aria-controls={answerId}
         aria-expanded={isOpen}
+        onClick={onToggle}
+        className="group flex w-full items-center justify-between py-8 text-left"
+        type="button"
       >
-        <span>{question}</span>
-        <ChevronDown
-          className={`w-5 h-5 text-slate-500 shrink-0 transition-transform duration-300 ${
-            isOpen ? 'rotate-180 text-orange-600' : ''
-          }`}
-        />
+        <span className="pr-8 font-display text-xl uppercase tracking-tight transition-colors group-hover:text-[#8A9678] lg:text-2xl">
+          {question}
+        </span>
+        <span
+          aria-hidden="true"
+          className="shrink-0 text-2xl font-light text-[#77756F]"
+        >
+          {isOpen ? "−" : "+"}
+        </span>
       </button>
-      {isOpen && (
-        <div className="px-6 py-5 bg-white border-t border-slate-100 text-slate-600 text-sm leading-relaxed animate-in fade-in duration-200">
+      <div
+        className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? "max-h-64 pb-8 opacity-100" : "max-h-0 opacity-0"}`}
+        id={answerId}
+        aria-hidden={!isOpen}
+      >
+        <p className="max-w-2xl text-sm leading-relaxed text-[#77756F]">
           {answer}
-        </div>
-      )}
+        </p>
+      </div>
     </div>
   );
 }

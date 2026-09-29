@@ -1,46 +1,44 @@
-import { Wifi, ShieldCheck, Bed, Bath, Sparkles, Utensils } from 'lucide-react';
-
 export const AMENITIES = [
   {
-    icon: Wifi,
-    title: 'Ultra Fast Wi-Fi 6',
-    subtitle: 'Dedicated 500 Mbps Bandwidth',
-    description: 'Dedicated fiber connection with redundant failover. Unlimited streaming, high-speed gaming, and seamless Zoom calls.',
-    category: 'tech'
+    number: "01",
+    title: "High-Speed Wi-Fi",
+    subtitle: "Dedicated 500 Mbps",
+    description:
+      "Jaringan serat optik mandiri tanpa lag untuk meeting Zoom, streaming film 4K, maupun pengerjaan tugas tanpa hambatan.",
   },
   {
-    icon: ShieldCheck,
-    title: '24/7 Smart Security',
-    subtitle: 'CCTV + RFID Smart Locks',
-    description: 'Round-the-clock security personnel, face-ID/RFID entry doors, and night patrol monitoring across all corridors.',
-    category: 'security'
+    number: "02",
+    title: "Smart Access Security",
+    subtitle: "RFID & CCTV 24/7",
+    description:
+      "Sistem akses kartu RFID per kamar, CCTV di setiap koridor umum, serta staf pengawas malam demi rasa tenang sepanjang hari.",
   },
   {
-    icon: Bed,
-    title: 'Fully Furnished Living',
-    subtitle: 'Move In with Just Your Luggage',
-    description: 'Orthopedic spring mattresses, spacious wardrobes, LED ambient lights, and ergonomic workspace pre-installed.',
-    category: 'comfort'
+    number: "03",
+    title: "Private Bathrooms",
+    subtitle: "Warm Water Heater",
+    description:
+      "Seluruh kamar memiliki kamar mandi pribadi yang bersih, dilengkapi pemanas air listrik, exhaust fan, dan saniter modern.",
   },
   {
-    icon: Bath,
-    title: 'Private En-Suite Bathroom',
-    subtitle: 'Instant Hot Water & Modern Fixtures',
-    description: 'Clean, modern bathroom in every single room with electric water heaters, exhaust fan, and eco showerheads.',
-    category: 'comfort'
+    number: "04",
+    title: "Fully Furnished",
+    subtitle: "Ready to Move In",
+    description:
+      "Sudah termasuk kasur springbed ortopedi, lemari pakaian berukuran pas, meja kerja ergonomis, dan pencahayaan hangat.",
   },
   {
-    icon: Sparkles,
-    title: 'Housekeeping & Laundry',
-    subtitle: 'Hassle-free Daily Maintenance',
-    description: 'Free weekly deep room cleaning, garbage pick-up, and optional full wash & fold laundry service.',
-    category: 'services'
+    number: "05",
+    title: "Housekeeping",
+    subtitle: "Routine Cleaning Services",
+    description:
+      "Pembersihan kamar berkala tanpa biaya tambahan, pengelolaan sampah harian, dan layanan cuci baju terintegrasi.",
   },
   {
-    icon: Utensils,
-    title: 'Pantry & Common Lounge',
-    subtitle: 'Shared Kitchen & Cafe Corner',
-    description: 'Equipped with microwave, induction stoves, water dispenser, free coffee/tea, and collaborative study nooks.',
-    category: 'services'
-  }
+    number: "06",
+    title: "Communal Spaces",
+    subtitle: "Kitchen & Lounge",
+    description:
+      "Fasilitas dapur bersama dilengkapi microwave, kompor induksi, dispenser air minum, dan area kerja santai.",
+  },
 ];

@@ -1,122 +1,95 @@
-import React from 'react';
-import { Eye, Wifi, Building2, Bed, Bath, Wind, Check, Calendar } from 'lucide-react';
-import { formatCurrencyIDR } from '../../../utils/formatters';
+import { ArrowRight } from "lucide-react";
 
 /**
  * Individual room tier presentation card
  */
 export default function RoomCard({
   room,
+  index,
   billingCycle,
   onSelectForModal,
-  onOpenInquiry
+  onOpenInquiry,
 }) {
-  const activePrice = billingCycle === 'monthly' ? room.priceMonthly : room.priceYearly;
+  const activePrice =
+    billingCycle === "monthly" ? room.priceMonthly : room.priceYearly;
+
+  const isEven = index % 2 === 0;
 
   return (
-    <div className="bg-slate-50 rounded-3xl overflow-hidden border border-slate-200/80 hover:border-orange-400 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col">
-      {/* Card Header Image Preview */}
-      <div className="relative h-60 w-full bg-slate-200 group overflow-hidden">
+    <article className="group grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-16">
+      <div
+        className={`relative h-[50vh] min-h-72 overflow-hidden bg-[#DCDAD3] lg:col-span-7 lg:h-[75vh] ${!isEven ? "lg:order-2" : ""}`}
+      >
         <img
-          src={room.images[0]}
           alt={room.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="img-hover-scale img-parallax absolute inset-0 h-full w-full origin-center object-cover"
+          loading="lazy"
+          src={room.images[0]}
         />
-        <div className="absolute top-4 left-4">
-          <span className="px-3 py-1 rounded-full bg-orange-500 text-white text-xs font-bold uppercase shadow-md">
-            {room.badge}
+        <span className="absolute left-6 top-6 bg-[#F5F4EF] px-3 py-1.5 text-[9px] font-semibold uppercase tracking-widest text-[#171717]">
+          {room.badge}
+        </span>
+      </div>
+
+      <div
+        className={`reveal-text flex flex-col lg:col-span-5 ${!isEven ? "lg:order-1 lg:pr-12" : "lg:pl-12"}`}
+      >
+        <div className="mb-8 flex items-end justify-between border-b border-[#DCDAD3] pb-4">
+          <span className="font-display text-4xl text-[#DCDAD3]">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <span className="text-[10px] uppercase tracking-widest text-[#77756F]">
+            {room.size} · {room.targetAudience}
           </span>
         </div>
 
-        <div className="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-white text-xs px-2.5 py-1 rounded-lg flex items-center gap-1 font-medium">
-          <Eye className="w-3.5 h-3.5 text-orange-400" />
-          <span>{room.images.length} Photos</span>
-        </div>
-      </div>
+        <h3 className="mb-4 font-display text-3xl uppercase tracking-tight lg:text-5xl">
+          {room.name}
+        </h3>
+        <p className="mb-8 text-sm leading-relaxed text-[#77756F]">
+          {room.description}
+        </p>
 
-      {/* Card Body */}
-      <div className="p-6 flex-1 flex flex-col justify-between space-y-6">
-        <div className="space-y-3">
+        <ul className="mb-12 space-y-4">
+          {room.features.slice(0, 3).map((feature) => (
+            <li
+              className="flex items-start gap-4 border-t border-[#DCDAD3]/40 pt-4 text-xs font-medium uppercase tracking-wider"
+              key={feature}
+            >
+              <span className="text-[#8A9678]">/</span>
+              {feature}
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-auto flex flex-col gap-6">
           <div>
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-orange-600 uppercase tracking-wider">
-                {room.targetAudience} Suite
-              </span>
-              <span className="text-xs text-slate-500 font-semibold flex items-center gap-1">
-                <Wifi className="w-3.5 h-3.5 text-emerald-500" />
-                {room.wifiSpeed}
-              </span>
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 mt-1">{room.name}</h3>
-            <p className="text-xs text-slate-500 mt-0.5">{room.tagline}</p>
+            <span className="mb-1 block text-[10px] uppercase tracking-widest text-[#77756F]">
+              PRICE /{billingCycle === "monthly" ? "MO" : "YR"}
+            </span>
+            <span className="font-display text-3xl tracking-tight">
+              IDR {activePrice.toLocaleString("id-ID")}
+            </span>
           </div>
 
-          {/* Room Specs Pills */}
-          <div className="grid grid-cols-2 gap-2 text-xs font-medium text-slate-700 bg-white p-3 rounded-xl border border-slate-200/60">
-            <div className="flex items-center gap-1.5">
-              <Building2 className="w-4 h-4 text-orange-500" />
-              <span>Size: {room.size}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Bed className="w-4 h-4 text-orange-500" />
-              <span>{room.bed}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Bath className="w-4 h-4 text-orange-500" />
-              <span>En-suite Hot Bath</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Wind className="w-4 h-4 text-orange-500" />
-              <span>AC 1 HP Inverter</span>
-            </div>
-          </div>
-
-          {/* Feature Bullet List */}
-          <ul className="space-y-2 pt-2">
-            {room.features.slice(0, 4).map((feat, idx) => (
-              <li key={idx} className="flex items-start gap-2 text-xs text-slate-600 font-normal">
-                <Check className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span>{feat}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Pricing & CTA */}
-        <div className="pt-4 border-t border-slate-200/80 space-y-4">
-          <div className="flex items-baseline justify-between">
-            <div>
-              <span className="text-2xl font-black text-slate-900">
-                {formatCurrencyIDR(activePrice)}
-              </span>
-              <span className="text-xs text-slate-500 font-medium"> / month</span>
-            </div>
-            {billingCycle === 'yearly' && (
-              <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                Billed annually
-              </span>
-            )}
-          </div>
-
-          <div className="grid grid-cols-2 gap-2">
+          <div className="flex gap-4">
             <button
+              className="flex-1 border border-[#171717] py-4 text-xs font-semibold uppercase tracking-widest transition-colors hover:bg-[#171717] hover:text-[#F5F4EF]"
               onClick={() => onSelectForModal(room)}
-              className="w-full py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs hover:bg-slate-100 transition-colors flex items-center justify-center gap-1"
+              type="button"
             >
-              <Eye className="w-3.5 h-3.5" />
-              <span>Spec Detail</span>
+              DETAILS
             </button>
-            
             <button
+              className="btn-hover-arrow flex flex-1 items-center justify-center gap-2 bg-[#171717] py-4 text-xs font-semibold uppercase tracking-widest text-[#F5F4EF] transition-colors hover:bg-[#8A9678]"
               onClick={() => onOpenInquiry(room.name)}
-              className="w-full py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs shadow-md shadow-orange-500/20 transition-all flex items-center justify-center gap-1"
+              type="button"
             >
-              <Calendar className="w-3.5 h-3.5" />
-              <span>Book Room</span>
+              INQUIRE <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

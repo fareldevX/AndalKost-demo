@@ -1,25 +1,37 @@
-import React from 'react';
-import SectionHeader from '../../../components/ui/SectionHeader';
-import { TESTIMONIALS } from '../data/testimonials';
-import TestimonialCard from './TestimonialCard';
+import { TESTIMONIALS } from "../data/testimonials";
 
 /**
  * Tenant testimonials and social proof section
  */
 export default function TestimonialsSection({ testimonials = TESTIMONIALS }) {
-  return (
-    <section id="reviews" className="py-20 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          badge="Tenant Testimonials"
-          title="Loved by Students & Professionals"
-          description="Read what our current long-term residents have to say about living in AndalKost properties."
-        />
+  const featuredTestimonial = testimonials[0];
 
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((review, idx) => (
-            <TestimonialCard key={idx} review={review} />
-          ))}
+  return (
+    <section className="bg-[#171717] px-6 py-32 text-[#F5F4EF] lg:px-12">
+      <div className="reveal-text mx-auto flex max-w-5xl flex-col items-center text-center">
+        <span className="mb-12 block text-[10px] uppercase tracking-widest text-[#77756F]">
+          RESIDENT VOICES
+        </span>
+
+        <div className="relative">
+          <span
+            aria-hidden="true"
+            className="absolute -left-8 -top-12 font-display text-8xl leading-none text-[#8A9678] opacity-50 lg:-left-16 lg:-top-24 lg:text-[10rem]"
+          >
+            &quot;
+          </span>
+          <blockquote className="relative z-10 font-display text-3xl uppercase leading-tight tracking-tight lg:text-5xl">
+            {featuredTestimonial.quote}
+          </blockquote>
+        </div>
+
+        <div className="mt-16 flex w-64 flex-col items-center border-t border-[#77756F]/30 pt-8">
+          <span className="text-xs font-semibold uppercase tracking-widest">
+            {featuredTestimonial.name}
+          </span>
+          <span className="mt-1 text-[10px] uppercase tracking-widest text-[#77756F]">
+            {featuredTestimonial.role}
+          </span>
         </div>
       </div>
     </section>

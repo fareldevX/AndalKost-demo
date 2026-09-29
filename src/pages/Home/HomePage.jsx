@@ -1,86 +1,71 @@
-import React, { useState } from 'react';
-import Header from '../../components/layout/Header';
-import Footer from '../../components/layout/Footer';
-import MobileBottomBar from '../../components/layout/MobileBottomBar';
+import { useRef, useState } from "react";
+import { useOutletContext } from "react-router-dom";
+import { useGsapAnimations } from "../../hooks/useGsapAnimations";
 
-import HeroSection from './components/Hero/HeroSection';
-import StatsBar from './components/StatsBar';
-import CtaBanner from './components/CtaBanner';
+import HeroSection from "./components/Hero/HeroSection";
+import CtaBanner from "./components/CtaBanner";
+import AboutSection from "../../features/about/components/AboutSection";
 
-import AmenitiesSection from '../../features/amenities/components/AmenitiesSection';
-import RoomsSection from '../../features/rooms/components/RoomsSection';
-import LocationsSection from '../../features/locations/components/LocationsSection';
-import TestimonialsSection from '../../features/testimonials/components/TestimonialsSection';
-import FaqSection from '../../features/faq/components/FaqSection';
+import AmenitiesSection from "../../features/amenities/components/AmenitiesSection";
+import RoomsSection from "../../features/rooms/components/RoomsSection";
+import LocationsSection from "../../features/locations/components/LocationsSection";
+import TestimonialsSection from "../../features/testimonials/components/TestimonialsSection";
+import FaqSection from "../../features/faq/components/FaqSection";
 
-import RoomDetailModal from '../../features/rooms/components/RoomDetailModal';
-import InquiryModal from '../../features/inquiry/components/InquiryModal';
+import RoomDetailModal from "../../features/rooms/components/RoomDetailModal";
+import { useRoomFilter } from "../../features/rooms/hooks/useRoomFilter";
+import { LOCATIONS } from "../../features/locations/data/locations";
+import { ROOM_TIERS } from "../../features/rooms/data/rooms";
 
-import { useRoomFilter } from '../../features/rooms/hooks/useRoomFilter';
-import { useInquiryModal } from '../../features/inquiry/hooks/useInquiryModal';
-import { LOCATIONS } from '../../features/locations/data/locations';
-import { ROOM_TIERS } from '../../features/rooms/data/rooms';
-
-/**
- * Route-level home landing page composition
- */
 export default function HomePage() {
+  const inquiry = useOutletContext();
   const [selectedLocation, setSelectedLocation] = useState(LOCATIONS[0].id);
   const [selectedRoomForModal, setSelectedRoomForModal] = useState(null);
+  const pageContainer = useRef(null);
 
   const roomFilter = useRoomFilter(ROOM_TIERS);
-  const inquiry = useInquiryModal(LOCATIONS[0].id, ROOM_TIERS[0].name);
+  useGsapAnimations(pageContainer);
+
+  const selectLocation = (locationId) => {
+    setSelectedLocation(locationId);
+    inquiry.updateField("branch", locationId);
+  };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans antialiased selection:bg-orange-500 selection:text-white">
-      {/* 1. Sticky Header & Navigation */}
-      <Header onOpenInquiry={() => inquiry.openInquiry()} />
-
-      {/* 2. Main Page Feature Sections */}
+    <div className="overflow-x-hidden" ref={pageContainer}>
       <main>
         <HeroSection
           selectedLocation={selectedLocation}
-          onLocationChange={setSelectedLocation}
+          onLocationChange={selectLocation}
           selectedAudience={roomFilter.selectedAudience}
           onAudienceChange={roomFilter.setSelectedAudience}
-          onOpenInquiry={inquiry.openInquiry}
         />
 
-        <StatsBar />
-
-        <AmenitiesSection onOpenInquiry={() => inquiry.openInquiry()} />
+        <AboutSection />
 
         <RoomsSection
           rooms={roomFilter.filteredRooms}
           billingCycle={roomFilter.billingCycle}
           onToggleBilling={roomFilter.toggleBilling}
-          selectedAudience={roomFilter.selectedAudience}
-          onSelectAudience={roomFilter.setSelectedAudience}
           onSelectRoomForModal={setSelectedRoomForModal}
           onOpenInquiry={inquiry.openInquiry}
         />
 
+        <AmenitiesSection />
+
         <LocationsSection
           locations={LOCATIONS}
           selectedLocationId={selectedLocation}
-          onSelectLocation={setSelectedLocation}
-          onOpenInquiry={() => inquiry.openInquiry()}
+          onSelectLocation={selectLocation}
         />
 
         <TestimonialsSection />
 
         <FaqSection />
 
-        <CtaBanner onOpenInquiry={() => inquiry.openInquiry()} />
+        <CtaBanner onOpenInquiry={inquiry.openInquiry} />
       </main>
 
-      {/* 3. Extensive Footer */}
-      <Footer />
-
-      {/* 4. Sticky Mobile Floating Action Bar */}
-      <MobileBottomBar onOpenInquiry={() => inquiry.openInquiry()} />
-
-      {/* 5. Feature Modals */}
       <RoomDetailModal
         room={selectedRoomForModal}
         onClose={() => setSelectedRoomForModal(null)}
@@ -88,16 +73,6 @@ export default function HomePage() {
           setSelectedRoomForModal(null);
           inquiry.openInquiry(roomName);
         }}
-      />
-
-      <InquiryModal
-        isOpen={inquiry.isOpen}
-        onClose={inquiry.closeInquiry}
-        formData={inquiry.formData}
-        onChange={inquiry.updateField}
-        onSubmit={(e) => inquiry.handleSubmit(e, LOCATIONS)}
-        isSubmitted={inquiry.formSubmitted}
-        onReopen={() => inquiry.reopenWhatsApp(LOCATIONS)}
       />
     </div>
   );

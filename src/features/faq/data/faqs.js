@@ -1,22 +1,22 @@
 export const FAQS = [
   {
-    question: 'Are electricity costs included in the monthly rent?',
-    answer: 'Each room is equipped with an independent digital token meter (PLN Prepaid). This ensures you only pay for what you use, typically around IDR 150.000 - 300.000 per month depending on AC usage.'
+    question: "Apakah listrik sudah termasuk dalam harga sewa bulanan?",
+    answer:
+      "Setiap kamar menggunakan meteran listrik digital mandiri. Sistem ini memberi Anda fleksibilitas penuh mengontrol pemakaian pribadi, dengan rata-rata IDR 150K–300K per bulan.",
   },
   {
-    question: 'What is the deposit requirement and cancellation policy?',
-    answer: 'We require a 1-month refundable security deposit upon check-in. The deposit will be fully returned on your check-out date after room inspection.'
+    question: "Bagaimana ketentuan deposit dan pembatalan sewa?",
+    answer:
+      "Kami menerapkan deposit keamanan setara 1 bulan sewa saat check-in. Deposit bersifat 100% refundable saat masa sewa selesai setelah pemeriksaan kondisi kamar.",
   },
   {
-    question: 'Can I bring overnight guests or family members?',
-    answer: 'Visitors are welcomed in our ground floor lobby and shared lounge until 10:00 PM. Same-gender overnight guests are permitted with 24-hour prior notice to house management.'
+    question: "Apakah tamu atau keluarga boleh berkunjung dan menginap?",
+    answer:
+      "Tamu diperbolehkan berkunjung di area lobby & pantry bersama hingga pukul 22.00 WIB. Untuk tamu menginap, wajib mengonfirmasi ke tim pengelola minimal 24 jam sebelumnya.",
   },
   {
-    question: 'Is parking available for cars and motorcycles?',
-    answer: 'Yes! All AndalKost branches feature secure covered parking facilities equipped with CCTV cameras. Motorcycle parking is free, while car parking space can be reserved for a small monthly fee.'
+    question: "Bagaimana ketersediaan lahan parkir kendaraan?",
+    answer:
+      "Seluruh lokasi menyediakan area parkir terpadu dengan CCTV. Parkir motor gratis, sedangkan parkir mobil memerlukan reservasi slot bulanan terbatas.",
   },
-  {
-    question: 'How fast can I move in after booking?',
-    answer: 'You can move in within the same day! Once your booking inquiry is confirmed via WhatsApp and deposit processed, your RFID keycard will be prepared immediately.'
-  }
 ];

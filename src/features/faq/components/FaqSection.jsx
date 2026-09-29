@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import SectionHeader from '../../../components/ui/SectionHeader';
-import { FAQS } from '../data/faqs';
-import FaqItem from './FaqItem';
+import { useState } from "react";
+import { FAQS } from "../data/faqs";
+import FaqItem from "./FaqItem";
 
 /**
  * FAQ accordion section
@@ -14,15 +13,18 @@ export default function FaqSection({ faqs = FAQS }) {
   };
 
   return (
-    <section id="faq" className="py-20 bg-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          badge="Got Questions?"
-          title="Frequently Asked Questions"
-          description="Everything you need to know about checking in, house rules, and monthly billing."
-        />
+    <section id="faq" className="border-y border-[#DCDAD3] px-6 py-24 lg:px-12">
+      <div className="reveal-text mx-auto max-w-4xl">
+        <div className="mb-16">
+          <span className="mb-4 block text-[10px] uppercase tracking-widest text-[#77756F]">
+            FAQ
+          </span>
+          <h2 className="font-display text-4xl uppercase tracking-tight lg:text-5xl">
+            COMMON INQUIRIES.
+          </h2>
+        </div>
 
-        <div className="mt-12 space-y-4">
+        <div className="border-t border-[#171717]">
           {faqs.map((faq, index) => (
             <FaqItem
               key={index}

@@ -1,6 +1,6 @@
-import React from 'react';
-import { MapPin, Users, Clock, Search } from 'lucide-react';
-import { LOCATIONS } from '../../../../features/locations/data/locations';
+import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { LOCATIONS } from "../../../../features/locations/data/locations";
 
 /**
  * Quick search and filter bar displayed in the hero section
@@ -9,78 +9,94 @@ export default function QuickSearchBar({
   selectedLocation,
   onLocationChange,
   selectedAudience,
-  onAudienceChange
+  onAudienceChange,
 }) {
-  const handleScrollToRooms = () => {
-    const roomSec = document.getElementById('rooms');
-    if (roomSec) {
-      roomSec.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const [timeline, setTimeline] = useState("Immediate");
 
   return (
-    <div className="mt-12 lg:mt-16 bg-white rounded-2xl p-4 sm:p-6 shadow-xl border border-slate-200/80 max-w-5xl mx-auto">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
-        {/* Select Branch */}
-        <div className="space-y-1">
-          <label className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-orange-500" />
-            <span>Preferred Branch</span>
-          </label>
+    <section className="border-y border-[#DCDAD3] bg-[#FAFAF8] px-6 py-12 lg:px-12">
+      <div className="mb-8 flex flex-col">
+        <span className="mb-2 text-[10px] uppercase tracking-widest text-[#77756F]">
+          QUICK SEARCH
+        </span>
+        <h2 className="font-display text-2xl uppercase tracking-tight lg:text-3xl">
+          WHERE DO YOU WANT TO STAY?
+        </h2>
+      </div>
+
+      <div className="grid grid-cols-1 items-end gap-x-12 gap-y-8 md:grid-cols-4">
+        <label
+          className="flex min-w-0 flex-col border-b border-[#DCDAD3] pb-2"
+          htmlFor="search-location"
+        >
+          <span className="mb-2 text-[10px] uppercase tracking-widest text-[#77756F]">
+            LOCATION
+          </span>
           <select
+            className="w-full cursor-pointer appearance-none bg-transparent text-sm font-medium uppercase focus:outline-none lg:text-base"
+            id="search-location"
+            onChange={(event) => onLocationChange(event.target.value)}
             value={selectedLocation}
-            onChange={(e) => onLocationChange(e.target.value)}
-            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer"
           >
-            {LOCATIONS.map((loc) => (
-              <option key={loc.id} value={loc.id}>
-                {loc.name}
+            {LOCATIONS.map((location) => (
+              <option key={location.id} value={location.id}>
+                {location.name}
               </option>
             ))}
           </select>
-        </div>
+        </label>
 
-        {/* Select Target Audience */}
-        <div className="space-y-1">
-          <label className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-            <Users className="w-3.5 h-3.5 text-orange-500" />
-            <span>Tenant Category</span>
-          </label>
+        <label
+          className="flex min-w-0 flex-col border-b border-[#DCDAD3] pb-2"
+          htmlFor="search-category"
+        >
+          <span className="mb-2 text-[10px] uppercase tracking-widest text-[#77756F]">
+            CATEGORY
+          </span>
           <select
+            className="w-full cursor-pointer appearance-none bg-transparent text-sm font-medium uppercase focus:outline-none lg:text-base"
+            id="search-category"
+            onChange={(event) => onAudienceChange(event.target.value)}
             value={selectedAudience}
-            onChange={(e) => onAudienceChange(e.target.value)}
-            className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer"
           >
             <option value="All">All Categories</option>
-            <option value="Student">University Student</option>
-            <option value="Professional">Young Professional</option>
+            <option value="Student">Student</option>
+            <option value="Professional">Professional</option>
           </select>
-        </div>
+        </label>
 
-        {/* Move in timing */}
-        <div className="space-y-1">
-          <label className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5 text-orange-500" />
-            <span>Move-in Timeline</span>
-          </label>
-          <select className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer">
-            <option>Immediate / This Week</option>
-            <option>Next Month</option>
-            <option>Next Semester (2-3 Months)</option>
-          </select>
-        </div>
-
-        {/* Search CTA */}
-        <div className="pt-1">
-          <button
-            onClick={handleScrollToRooms}
-            className="w-full py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm shadow-md shadow-orange-500/20 transition-all flex items-center justify-center gap-2"
+        <label
+          className="flex min-w-0 flex-col border-b border-[#DCDAD3] pb-2"
+          htmlFor="search-timeline"
+        >
+          <span className="mb-2 text-[10px] uppercase tracking-widest text-[#77756F]">
+            TIMELINE
+          </span>
+          <select
+            className="w-full cursor-pointer appearance-none bg-transparent text-sm font-medium uppercase focus:outline-none lg:text-base"
+            id="search-timeline"
+            onChange={(event) => setTimeline(event.target.value)}
+            value={timeline}
           >
-            <Search className="w-4 h-4" />
-            <span>Find Available Rooms</span>
-          </button>
-        </div>
+            <option value="Immediate">Immediate</option>
+            <option value="Next Month">Next Month</option>
+            <option value="Next Semester">Next Semester</option>
+          </select>
+        </label>
+
+        <button
+          className="btn-hover-arrow flex w-full items-center justify-between bg-[#171717] px-6 py-4 text-xs font-semibold uppercase tracking-widest text-[#F5F4EF] transition-colors hover:bg-[#8A9678]"
+          onClick={() =>
+            document
+              .getElementById("rooms")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
+          type="button"
+        >
+          <span>SEARCH</span>
+          <ArrowRight aria-hidden="true" className="h-4 w-4" />
+        </button>
       </div>
-    </div>
+    </section>
   );
 }

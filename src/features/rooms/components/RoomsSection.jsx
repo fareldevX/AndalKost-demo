@@ -1,6 +1,4 @@
-import React from 'react';
-import SectionHeader from '../../../components/ui/SectionHeader';
-import RoomCard from './RoomCard';
+import RoomCard from "./RoomCard";
 
 /**
  * Rooms catalog and pricing showcase section
@@ -9,80 +7,66 @@ export default function RoomsSection({
   rooms,
   billingCycle,
   onToggleBilling,
-  selectedAudience,
-  onSelectAudience,
   onSelectRoomForModal,
-  onOpenInquiry
+  onOpenInquiry,
 }) {
   return (
-    <section id="rooms" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          badge="Transparent Pricing & Options"
-          title="Choose Your Ideal Room Tier"
-          description="Fully transparent rates with zero hidden maintenance fees. Select your preferred room layout below."
-        >
-          {/* Audience Filter Pills & Billing Cycle Switch */}
-          <div className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-6">
-            {/* Category Filter */}
-            <div className="bg-slate-100 p-1.5 rounded-xl flex items-center gap-1 border border-slate-200">
-              {['All', 'Student', 'Professional'].map((category) => (
-                <button
-                  key={category}
-                  onClick={() => onSelectAudience(category)}
-                  className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
-                    selectedAudience === category
-                      ? 'bg-white text-orange-600 shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  {category === 'All' ? 'All Types' : `For ${category}s`}
-                </button>
-              ))}
-            </div>
+    <section
+      id="rooms"
+      className="border-t border-[#DCDAD3] bg-[#FAFAF8] px-6 py-24 lg:px-12"
+    >
+      <div>
+        <div className="reveal-text mb-24 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+          <div>
+            <span className="mb-4 block text-[10px] uppercase tracking-widest text-[#77756F]">
+              01 / SPACES
+            </span>
+            <h2 className="font-display text-4xl uppercase tracking-tight lg:text-6xl">
+              CURATED LIVING
+            </h2>
+          </div>
 
-            {/* Billing Toggle (Monthly / Yearly) */}
-            <div className="flex items-center gap-3 bg-orange-50 px-4 py-2 rounded-xl border border-orange-200">
+          <div className="flex flex-col items-start gap-4 md:items-end">
+            <div className="flex items-center gap-4 text-xs font-semibold uppercase tracking-widest">
               <span
-                className={`text-xs font-bold ${
-                  billingCycle === 'monthly' ? 'text-slate-900' : 'text-slate-500'
-                }`}
+                className={
+                  billingCycle === "monthly"
+                    ? "text-[#171717]"
+                    : "text-[#77756F]"
+                }
               >
-                Monthly
+                MONTHLY
               </span>
               <button
-                onClick={onToggleBilling}
-                className="relative w-12 h-6 rounded-full bg-orange-500 transition-colors p-1"
                 aria-label="Toggle billing cycle"
+                aria-pressed={billingCycle === "yearly"}
+                className="relative h-6 w-12 border border-[#171717] p-1"
+                onClick={onToggleBilling}
+                type="button"
               >
-                <div
-                  className={`w-4 h-4 rounded-full bg-white transition-transform ${
-                    billingCycle === 'yearly' ? 'translate-x-6' : 'translate-x-0'
-                  }`}
+                <span
+                  className={`block h-4 w-4 bg-[#171717] transition-transform duration-300 ${billingCycle === "yearly" ? "translate-x-6" : "translate-x-0"}`}
                 />
               </button>
-              <div className="flex items-center gap-1.5">
-                <span
-                  className={`text-xs font-bold ${
-                    billingCycle === 'yearly' ? 'text-slate-900' : 'text-slate-500'
-                  }`}
-                >
-                  Yearly Payment
-                </span>
-                <span className="px-2 py-0.5 rounded-md bg-emerald-500 text-white text-[10px] font-extrabold uppercase">
-                  Save ~10%
-                </span>
-              </div>
+              <span
+                className={
+                  billingCycle === "yearly"
+                    ? "text-[#171717]"
+                    : "text-[#77756F]"
+                }
+              >
+                YEARLY (-10%)
+              </span>
             </div>
           </div>
-        </SectionHeader>
+        </div>
 
-        {/* Room Cards Grid */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {rooms.map((room) => (
+        <div className="flex flex-col gap-32 lg:gap-48">
+          {rooms.map((room, index) => (
             <RoomCard
               key={room.id}
               room={room}
+              index={index}
               billingCycle={billingCycle}
               onSelectForModal={onSelectRoomForModal}
               onOpenInquiry={onOpenInquiry}

@@ -1,111 +1,100 @@
-import React from 'react';
-import { MessageSquare } from 'lucide-react';
-import { LOCATIONS } from '../../locations/data/locations';
-import { ROOM_TIERS } from '../../rooms/data/rooms';
+import { MessageSquare } from "lucide-react";
+import { LOCATIONS } from "../../locations/data/locations";
+import { ROOM_TIERS } from "../../rooms/data/rooms";
 
-/**
- * Lead capture inquiry form
- */
 export default function InquiryForm({ formData, onChange, onSubmit }) {
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
-      <div>
-        <label className="text-xs font-bold text-slate-700 block mb-1">Your Full Name</label>
-        <input
-          type="text"
-          required
-          placeholder="e.g. Sarah Amalia"
-          value={formData.name}
-          onChange={(e) => onChange('name', e.target.value)}
-          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-        />
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="text-xs font-bold text-slate-700 block mb-1">Phone / WhatsApp</label>
+    <form className="space-y-6 p-8 pt-6 lg:p-12 lg:pt-6" onSubmit={onSubmit}>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <label
+          className="block text-[10px] uppercase tracking-widest text-[#77756F]"
+          htmlFor="inquiry-name"
+        >
+          FULL NAME
           <input
-            type="tel"
+            className="mt-2 w-full border-b border-[#171717] bg-transparent py-2 text-sm focus:border-[#8A9678] focus:outline-none"
+            id="inquiry-name"
+            onChange={(event) => onChange("name", event.target.value)}
             required
-            placeholder="08123456789"
-            value={formData.phone}
-            onChange={(e) => onChange('phone', e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+            type="text"
+            value={formData.name}
           />
-        </div>
-        <div>
-          <label className="text-xs font-bold text-slate-700 block mb-1">Status</label>
-          <select
-            value={formData.tenantType}
-            onChange={(e) => onChange('tenantType', e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
-          >
-            <option value="Student">University Student</option>
-            <option value="Professional">Young Professional</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
+        </label>
+        <label
+          className="block text-[10px] uppercase tracking-widest text-[#77756F]"
+          htmlFor="inquiry-phone"
+        >
+          WHATSAPP NUMBER
+          <input
+            className="mt-2 w-full border-b border-[#171717] bg-transparent py-2 text-sm focus:border-[#8A9678] focus:outline-none"
+            id="inquiry-phone"
+            onChange={(event) => onChange("phone", event.target.value)}
+            required
+            type="tel"
+            value={formData.phone}
+          />
+        </label>
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="text-xs font-bold text-slate-700 block mb-1">Branch Location</label>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <label
+          className="block text-[10px] uppercase tracking-widest text-[#77756F]"
+          htmlFor="inquiry-location"
+        >
+          LOCATION
           <select
+            className="mt-2 w-full appearance-none border-b border-[#171717] bg-transparent py-2 text-sm uppercase focus:border-[#8A9678] focus:outline-none"
+            id="inquiry-location"
+            onChange={(event) => onChange("branch", event.target.value)}
             value={formData.branch}
-            onChange={(e) => onChange('branch', e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
           >
-            {LOCATIONS.map((loc) => (
-              <option key={loc.id} value={loc.id}>
-                {loc.name}
+            {LOCATIONS.map((location) => (
+              <option key={location.id} value={location.id}>
+                {location.name}
               </option>
             ))}
           </select>
-        </div>
-
-        <div>
-          <label className="text-xs font-bold text-slate-700 block mb-1">Room Tier</label>
+        </label>
+        <label
+          className="block text-[10px] uppercase tracking-widest text-[#77756F]"
+          htmlFor="inquiry-room"
+        >
+          SPACE TYPE
           <select
+            className="mt-2 w-full appearance-none border-b border-[#171717] bg-transparent py-2 text-sm uppercase focus:border-[#8A9678] focus:outline-none"
+            id="inquiry-room"
+            onChange={(event) => onChange("roomType", event.target.value)}
             value={formData.roomType}
-            onChange={(e) => onChange('roomType', e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
           >
-            {ROOM_TIERS.map((tier) => (
-              <option key={tier.id} value={tier.name}>
-                {tier.name}
+            {ROOM_TIERS.map((room) => (
+              <option key={room.id} value={room.name}>
+                {room.name}
               </option>
             ))}
           </select>
-        </div>
+        </label>
       </div>
 
-      <div>
-        <label className="text-xs font-bold text-slate-700 block mb-1">Planned Move-In Date</label>
+      <label
+        className="block text-[10px] uppercase tracking-widest text-[#77756F]"
+        htmlFor="inquiry-move-in"
+      >
+        MOVE IN DATE
         <input
+          className="mt-2 w-full border-b border-[#171717] bg-transparent py-2 text-sm uppercase focus:border-[#8A9678] focus:outline-none"
+          id="inquiry-move-in"
+          onChange={(event) => onChange("moveInDate", event.target.value)}
           type="date"
           value={formData.moveInDate}
-          onChange={(e) => onChange('moveInDate', e.target.value)}
-          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
         />
-      </div>
-
-      <div>
-        <label className="text-xs font-bold text-slate-700 block mb-1">Notes / Questions (Optional)</label>
-        <textarea
-          rows={2}
-          placeholder="e.g. Need motorcycle parking space"
-          value={formData.notes}
-          onChange={(e) => onChange('notes', e.target.value)}
-          className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-        />
-      </div>
+      </label>
 
       <button
+        className="btn-hover-arrow mt-4 flex w-full items-center justify-between bg-[#171717] px-6 py-5 text-xs font-semibold uppercase tracking-widest text-[#F5F4EF] transition-colors hover:bg-[#8A9678]"
         type="submit"
-        className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2"
       >
-        <MessageSquare className="w-4 h-4" />
-        <span>Send Inquiry via WhatsApp</span>
+        <span>SEND INQUIRY</span>
+        <MessageSquare aria-hidden="true" className="h-4 w-4" />
       </button>
     </form>
   );

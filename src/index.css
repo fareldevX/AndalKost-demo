@@ -1,1 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
+
+:root {
+  --andalkost-obsidian: #171717;
+  --andalkost-paper: #f5f4ef;
+  --andalkost-light: #fafaf8;
+  --andalkost-muted: #77756f;
+  --andalkost-divider: #dcdad3;
+  --andalkost-accent: #8a9678;
+}
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+}
+
+.img-hover-scale {
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.group:hover .img-hover-scale {
+  transform: scale(1.03);
+}
+
+.btn-hover-arrow svg {
+  transition: transform 0.3s ease;
+}
+
+.btn-hover-arrow:hover svg {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

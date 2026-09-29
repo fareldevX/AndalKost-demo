@@ -1,7 +1,5 @@
-import React from 'react';
-import { Sparkles, Calendar, ArrowRight, Eye, CheckCircle2 } from 'lucide-react';
-import HeroShowcaseCard from './HeroShowcaseCard';
-import QuickSearchBar from './QuickSearchBar';
+import { ArrowRight } from "lucide-react";
+import QuickSearchBar from "./QuickSearchBar";
 
 /**
  * Hero showcase and value proposition section
@@ -11,87 +9,66 @@ export default function HeroSection({
   onLocationChange,
   selectedAudience,
   onAudienceChange,
-  onOpenInquiry
 }) {
+  const scrollToRooms = () => {
+    document.getElementById("rooms")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <section className="relative pt-8 pb-16 lg:pt-16 lg:pb-24 overflow-hidden bg-gradient-to-b from-orange-50/70 via-white to-slate-50">
-      {/* Decorative background glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-orange-300/30 to-amber-200/40 blur-3xl rounded-full pointer-events-none -z-10" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Headlines & CTAs */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-            {/* Trust Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-100/80 border border-orange-200 text-orange-800 text-xs sm:text-sm font-semibold shadow-xs">
-              <span className="flex h-2 w-2 rounded-full bg-orange-500 animate-ping" />
-              <Sparkles className="w-4 h-4 text-orange-600" />
-              <span>98% Occupancy Rate across 5 Strategic Hubs</span>
-            </div>
-
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
-              Modern, Secure & <br className="hidden sm:inline" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500">
-                Fully-Furnished
-              </span>{' '}
-              Living at AndalKost
+    <>
+      <section
+        id="top"
+        className="relative flex min-h-[90vh] flex-col justify-end px-6 pb-20 pt-32 lg:px-12 lg:pb-32 lg:pt-40"
+      >
+        <div className="relative z-10 grid grid-cols-1 items-end gap-8 lg:grid-cols-12 lg:gap-16">
+          <div className="flex flex-col justify-end lg:col-span-7">
+            <h1 className="m-0 p-0 font-display text-[14vw] uppercase leading-[0.85] tracking-tighter text-[#171717] lg:text-[9vw]">
+              <span className="block overflow-hidden">
+                <span className="hero-line-inner block">FIND</span>
+              </span>
+              <span className="block overflow-hidden">
+                <span className="hero-line-inner block">YOUR</span>
+              </span>
+              <span className="block overflow-hidden">
+                <span className="hero-line-inner block text-[#8A9678]">
+                  SPACE.
+                </span>
+              </span>
             </h1>
 
-            {/* Sub-headline */}
-            <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-              Premium boarding house tailored for university students and young professionals. Walking distance to campus & CBD, 500Mbps Wi-Fi, 24/7 RFID security, and zero hassle.
-            </p>
-
-            {/* Action Buttons */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <div className="hero-meta mt-12 flex flex-col gap-8 sm:flex-row sm:items-end lg:mt-16">
+              <p className="max-w-xs text-sm leading-relaxed text-[#77756F] lg:text-base">
+                Premium living spaces designed for focus, comfort, and
+                contemporary lifestyles in the heart of the city.
+              </p>
               <button
-                onClick={() => onOpenInquiry()}
-                className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-orange-500 via-orange-600 to-amber-600 text-white font-bold text-base hover:from-orange-600 hover:to-orange-700 shadow-xl shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-3"
+                className="btn-hover-arrow group flex w-max items-center gap-3 border-b border-[#171717] pb-1 text-xs font-semibold uppercase tracking-widest transition-all hover:border-[#8A9678] hover:text-[#8A9678]"
+                onClick={scrollToRooms}
+                type="button"
               >
-                <Calendar className="w-5 h-5" />
-                <span>Book a Room Now</span>
-                <ArrowRight className="w-5 h-5" />
+                EXPLORE SPACES{" "}
+                <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </button>
-
-              <a
-                href="#rooms"
-                className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white border border-slate-200 text-slate-700 font-bold text-base hover:bg-slate-50 hover:border-slate-300 shadow-xs transition-all flex items-center justify-center gap-2"
-              >
-                <Eye className="w-5 h-5 text-slate-500" />
-                <span>Explore Rooms & Prices</span>
-              </a>
-            </div>
-
-            {/* Quick Feature Pill Badges */}
-            <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-slate-600 text-xs sm:text-sm font-semibold">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-orange-500" />
-                <span>Zero Agent Fees</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-orange-500" />
-                <span>Free Room Cleaning</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-orange-500" />
-                <span>Flexible Terms</span>
-              </div>
             </div>
           </div>
 
-          {/* Right Column: Hero Visual Card / Interactive Room Showcase */}
-          <HeroShowcaseCard />
+          <div className="relative mt-8 h-[50vh] w-full overflow-hidden bg-[#DCDAD3] lg:col-span-5 lg:mt-0 lg:h-[70vh]">
+            <img
+              alt="AndalKost interior"
+              className="hero-img absolute h-full w-full origin-bottom object-cover"
+              fetchPriority="high"
+              src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=1200"
+            />
+          </div>
         </div>
+      </section>
 
-        {/* Quick Search & Filter Bar */}
-        <QuickSearchBar
-          selectedLocation={selectedLocation}
-          onLocationChange={onLocationChange}
-          selectedAudience={selectedAudience}
-          onAudienceChange={onAudienceChange}
-        />
-      </div>
-    </section>
+      <QuickSearchBar
+        selectedLocation={selectedLocation}
+        onLocationChange={onLocationChange}
+        selectedAudience={selectedAudience}
+        onAudienceChange={onAudienceChange}
+      />
+    </>
   );
 }
